@@ -20,6 +20,26 @@ class MyTestCase(unittest.TestCase):
         end = datetime.datetime(2023, 4, 30)
         self.assertEqual(30000, budget_service.query(start, end))
 
+    def test_oneday_amount(self):
+        data = {
+            '202305': Budget('202305', 31000),
+        }
+        budget_repo = BudgetRepo(data)
+        budget_service = BudgetService(budget_repo)
+        start = datetime.datetime(2023, 5, 1)
+        end = datetime.datetime(2023, 5, 1)
+        self.assertEqual(1000, budget_service.query(start, end))
+
+    def test_days_amount(self):
+        data = {
+            '202305': Budget('202305', 31000),
+        }
+        budget_repo = BudgetRepo(data)
+        budget_service = BudgetService(budget_repo)
+        start = datetime.datetime(2023, 5, 1)
+        end = datetime.datetime(2023, 5, 3)
+        self.assertEqual(3000, budget_service.query(start, end))
+
 
 if __name__ == '__main__':
     unittest.main()
